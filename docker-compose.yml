@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgis/postgis:15-3.4
+    container_name: safestreet_db
+    environment:
+      POSTGRES_USER: safestreet
+      POSTGRES_PASSWORD: safestreet123
+      POSTGRES_DB: safestreet_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
