@@ -1,3 +1,4 @@
+// src/app.module.ts
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -8,6 +9,12 @@ import { User } from './users/user.entity';
 import { Department } from './departments/department.entity';
 import { Incident } from './incidents/incident.entity';
 import { AiModule } from './ai/ai.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/user.module';
+import { DepartmentsModule } from './departments/department.module';
+import { IncidentsModule } from './incidents/incident.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { IncidentGateway } from './websocket/websocket.gateway';
 
 @Module({
     imports: [
@@ -30,9 +37,19 @@ import { AiModule } from './ai/ai.module';
             inject: [ConfigService],
         }),
         TypeOrmModule.forFeature([User, Department, Incident]),
+        
+        AuthModule,
+        UsersModule,
+        DepartmentsModule,
+        IncidentsModule,
+        NotificationsModule,
         AiModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [
+        AppService,
+        IncidentGateway,  //  Gateway registered once here
+    ],
+    exports: [IncidentGateway],  // Export so other modules can use it
 })
-export class AppModule { }
+export class AppModule {}

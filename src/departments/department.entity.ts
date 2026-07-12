@@ -1,4 +1,5 @@
-/* eslint-disable prettier/prettier */
+// src/departments/department.entity.ts
+
 import {
     Entity,
     Column,
@@ -6,6 +7,7 @@ import {
     OneToMany,
 } from 'typeorm';
 import { Incident } from '../incidents/incident.entity';
+import { User } from '../users/user.entity';
 
 @Entity('departments')
 export class Department {
@@ -26,4 +28,7 @@ export class Department {
 
     @OneToMany(() => Incident, (incident: Incident) => incident.department)
     incidents: Incident[];
+
+    @OneToMany(() => User, (user: User) => user.department)
+    users: User[];
 }

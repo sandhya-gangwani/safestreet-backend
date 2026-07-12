@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+// src/incidents/incident.entity.ts
 import {
     Entity,
     Column,
@@ -88,6 +88,13 @@ export class Incident {
     @Column({ default: 0 })
     viewCount: number;
 
+    // ✅ ADD SLA FIELDS BACK
+    @Column({ nullable: true })
+    slaDeadline: Date;
+
+    @Column({ default: false })
+    slaBreached: boolean;
+
     @CreateDateColumn()
     createdAt: Date;
 
@@ -107,4 +114,8 @@ export class Incident {
 
     @Column({ nullable: true })
     departmentId: string;
+
+    @ManyToOne(() => User, { nullable: true })
+    @JoinColumn({ name: 'assignedToId' })
+    assignedTo: User;
 }
