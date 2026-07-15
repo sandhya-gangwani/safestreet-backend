@@ -1,0 +1,1 @@
+export default function Unauthorized() { return <div className="p-4 text-red-500"><h1 className="text-2xl font-bold">Unauthorized Access</h1><p>You do not have permission to view this page.</p></div>; }
